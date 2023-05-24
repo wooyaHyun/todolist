@@ -1,15 +1,21 @@
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Spring Boot Application</title>
-    <script src="js/jquery.js"></script>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
-    Hello, Springboot
-    <button id="moveLedger" onclick="javascript: window.location.href='/ledgers'"></button>
 
-</body>
+<%@ include file="/WEB-INF/view/layout/header.jsp" %>
 
-</html>
+
+<h2>장부 웹서비스 </h2>
+<a href="/ledgers" role="button" class="btn btn-primary">장부 메인 이동</a>
+
+
+
+
+
+
+<%@ include file="/WEB-INF/view/layout/footer.jsp" %>
+
+
+
+
+

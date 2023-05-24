@@ -31,7 +31,7 @@ public class LedgerController {
     private final LedgerService ledgerService;
 
     @GetMapping("/api/v1/ledgers")
-    public ResponseEntity<List<LedgerListResponseDto>> getLedgerDscList(
+    public ResponseEntity<List<LedgerListResponseDto>> getLedgerList(
             @RequestParam("userId") String userId, @RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
 
         return ResponseEntity.ok(ledgerService.getLedgerList(userId, fromDate, toDate));
