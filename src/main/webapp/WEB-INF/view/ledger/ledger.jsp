@@ -1,20 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-
-
 <%@ include file="/WEB-INF/view/layout/header.jsp" %>
 
 <input type="hidden" id="userId" name="userName" value="test" />
 <div>
+    <h1>장부시스템</h1>
     <h3 id="titleMonth"> </h3>
     <button id="insertPage"> 장부 등록 </button>
     <br>
     <br>
     <button> 지난주 </button>   <span id="fromDate"></span> ~ <span id="toDate"></span>   <button> 다음주 </button>
 </div>
-
-
-
 
 
 
@@ -30,13 +25,13 @@ const theDate  = date.getDate();
 const theDayOfWeek = date.getDay();
 const thisWeek = [];
 
-const str = "Hello_123_World_456_!!!";
+//const str = "Hello_123_World_456_!!!";
 const regex = /[^0-9]/g;
 
 
 //-------event-------------
 $("#insertPage").click(function(){
-    window.location.href = "/api/v1/ledgers"
+    window.location.href = "/ledgers/save"
 });
 
 

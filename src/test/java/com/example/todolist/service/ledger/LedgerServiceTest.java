@@ -1,9 +1,7 @@
 package com.example.todolist.service.ledger;
 
-import com.example.todolist.domain.ledger.Item;
-import com.example.todolist.domain.ledger.Ledger;
-import com.example.todolist.domain.ledger.LedgerDsc;
-import com.example.todolist.domain.ledger.LedgerRepository;
+import com.example.todolist.domain.ledger.*;
+import com.example.todolist.dto.EnumMapperValue2;
 import com.example.todolist.dto.LedgerListResponseDto;
 import com.example.todolist.dto.LegerSaveRequestDto;
 import org.junit.jupiter.api.Test;
@@ -17,7 +15,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -66,12 +63,11 @@ class LedgerServiceTest {
         //given
 
         //when
-        List<LedgerDsc> legerDscList = ledgerService.getLegerDscList();
+        List<EnumMapperValue2> legerDscList = ledgerService.getLegerDscList();
 
         //then
-        assertThat(legerDscList.size()).isEqualTo(2);
-        assertThat(legerDscList.get(0).getItemList().size()).isEqualTo(7);//지출 항목 갯수
-        assertThat(legerDscList.get(1).getItemList().size()).isEqualTo(5);//수입 항목 갯수
+        assertThat(legerDscList.size()).isEqualTo(12);
+
     }
 
     @Test
@@ -98,7 +94,7 @@ class LedgerServiceTest {
                 .userId("test")
                 .useDate("20230517")
                 .ledgerDsc(LedgerDsc.EXPENDITURE)
-                .item(Item.ALCHOLE)
+                .item(Item.ALCOHOL)
                 .amount(66000)
                 .cntn("성영이 올라옴")
                 .build();

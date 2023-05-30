@@ -1,5 +1,6 @@
 package com.example.todolist.service.ledger;
 
+import com.example.todolist.dto.EnumMapperValue2;
 import com.example.todolist.domain.ledger.LedgerDsc;
 import com.example.todolist.domain.ledger.LedgerRepository;
 import com.example.todolist.dto.LedgerListResponseDto;
@@ -38,9 +39,12 @@ public class LedgerService {
 
 
     @Transactional(readOnly = true)
-    public List<LedgerDsc> getLegerDscList() {
+    public List<EnumMapperValue2> getLegerDscList() {
 
-        return Stream.of(LedgerDsc.values()).collect(Collectors.toList());
+        //return Stream.of(LedgerDsc.values()).collect(Collectors.toList());
+        return Stream.of(LedgerDsc.values())
+                .map(EnumMapperValue2::new)
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)

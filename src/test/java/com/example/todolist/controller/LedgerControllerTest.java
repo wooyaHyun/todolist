@@ -108,7 +108,7 @@ class LedgerControllerTest {
         LegerSaveRequestDto requestDto = LegerSaveRequestDto.builder()
                 .useDate("20230517")
                 .ledgerDsc(LedgerDsc.EXPENDITURE)
-                .item(Item.ALCHOLE)
+                .item(Item.ALCOHOL)
                 .amount(66000)
                 .cntn("성영이 올라옴")
                 .build();
@@ -133,7 +133,7 @@ class LedgerControllerTest {
                 .userId("test")
                 .useDate("20230517")
                 .ledgerDsc(LedgerDsc.EXPENDITURE)
-                .item(Item.ALCHOLE)
+                .item(Item.ALCOHOL)
                 .amount(66000)
                 .cntn("성영이 올라옴")
                 .build();

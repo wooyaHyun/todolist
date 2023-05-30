@@ -38,7 +38,7 @@ class LedgerRepositoryTest {
                 .ledgerDsc(LedgerDsc.EXPENDITURE)
                 .userId("test")
                 .useDate("20230519")
-                .item(Item.ALCHOLE)
+                .item(Item.ALCOHOL)
                 .amount(66000)
                 .cntn("친구 올라옴")
                 .build();
@@ -51,7 +51,7 @@ class LedgerRepositoryTest {
         assertThat(findLedger).isNotNull();
         assertThat(findLedger.getAmount()).isEqualTo(66000);
         assertThat(findLedger.getLedgerDsc()).isEqualTo(LedgerDsc.EXPENDITURE);
-        assertThat(findLedger.getItem()).isEqualTo(Item.ALCHOLE);
+        assertThat(findLedger.getItem()).isEqualTo(Item.ALCOHOL);
 
     }
 

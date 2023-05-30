@@ -1,6 +1,6 @@
 package com.example.todolist.domain.ledger;
 
-import lombok.Getter;
+import com.example.todolist.dto.EnumMapperBasic;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -14,15 +14,14 @@ import lombok.RequiredArgsConstructor;
  * -----------------------------------------------------------
  * 2023-04-13   SHW     최초 생성
  */
-@Getter
 @RequiredArgsConstructor
-public enum Item {
+public enum Item implements EnumMapperBasic {
 
     FOOD("식비"),
     SHOPPING("쇼핑"),
     COFFEE("커피"),
     DATE("데이트통장"),
-    ALCHOLE("음주비"),
+    ALCOHOL("음주비"),
     TRANSPORTATION("교통비"),
     ETC_EXPENDITURE("기타지출"),
     SALARY("월급"),
@@ -33,4 +32,16 @@ public enum Item {
 
 
     private final String title;
+
+    @Override
+    public String getCode() {
+        return name();
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+
 }

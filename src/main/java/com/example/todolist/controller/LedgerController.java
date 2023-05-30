@@ -1,6 +1,6 @@
 package com.example.todolist.controller;
 
-import com.example.todolist.domain.ledger.LedgerDsc;
+import com.example.todolist.dto.EnumMapperValue2;
 import com.example.todolist.dto.LedgerListResponseDto;
 import com.example.todolist.dto.LegerSaveRequestDto;
 import com.example.todolist.service.ledger.LedgerService;
@@ -45,7 +45,7 @@ public class LedgerController {
     }
 
     @GetMapping("/api/v1/ledger-dsc")
-    public ResponseEntity<List<LedgerDsc>> getLedgerDscList() {
+    public ResponseEntity<List<EnumMapperValue2>> getLedgerDscList() {
 
         return ResponseEntity.ok(ledgerService.getLegerDscList());
     }
