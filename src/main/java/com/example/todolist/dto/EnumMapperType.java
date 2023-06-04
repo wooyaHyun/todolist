@@ -21,6 +21,4 @@ public interface EnumMapperType{
     String getCode();
     String getTitle();
 
-    List<Item> getItemList();
-
 }

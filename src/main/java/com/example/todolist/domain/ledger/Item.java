@@ -1,6 +1,6 @@
 package com.example.todolist.domain.ledger;
 
-import com.example.todolist.dto.EnumMapperBasic;
+import com.example.todolist.dto.EnumMapperType;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
  * 2023-04-13   SHW     최초 생성
  */
 @RequiredArgsConstructor
-public enum Item implements EnumMapperBasic {
+public enum Item implements EnumMapperType {
 
     FOOD("식비"),
     SHOPPING("쇼핑"),

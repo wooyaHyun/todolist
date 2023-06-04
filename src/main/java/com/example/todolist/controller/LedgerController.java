@@ -1,6 +1,7 @@
 package com.example.todolist.controller;
 
-import com.example.todolist.dto.EnumMapperValue2;
+import com.example.todolist.config.EnumMapper;
+import com.example.todolist.dto.EnumMapperValue;
 import com.example.todolist.dto.LedgerListResponseDto;
 import com.example.todolist.dto.LegerSaveRequestDto;
 import com.example.todolist.service.ledger.LedgerService;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * packageName : com.example.todolist.controller
@@ -29,6 +31,7 @@ import java.util.List;
 public class LedgerController {
 
     private final LedgerService ledgerService;
+    private final EnumMapper enumMapper;
 
     @GetMapping("/api/v1/ledgers")
     public ResponseEntity<List<LedgerListResponseDto>> getLedgerList(
@@ -45,8 +48,8 @@ public class LedgerController {
     }
 
     @GetMapping("/api/v1/ledger-dsc")
-    public ResponseEntity<List<EnumMapperValue2>> getLedgerDscList() {
-
-        return ResponseEntity.ok(ledgerService.getLegerDscList());
+    public ResponseEntity<Map<String, List<EnumMapperValue>>> getLedgerDscList() {
+        //return ResponseEntity.ok(ledgerService.getLegerDscList());
+        return ResponseEntity.ok(enumMapper.getAll());
     }
 }

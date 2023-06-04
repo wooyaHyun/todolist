@@ -1,5 +1,7 @@
 package com.example.todolist.dto;
 
+import java.util.List;
+
 /**
  * packageName : com.example.todolist.domain.ledger
  * fileName : EnumMapperValueBasic
@@ -12,19 +14,27 @@ package com.example.todolist.dto;
  * 2023-05-31   SHW     최초 생성
  */
 
-public class EnumMapperValue1 {
+public class EnumMapperValue {
+    private final String code;
+    private final String title;
 
-    private String code;
-    private String title;
+    //private List<EnumMapperValue> itemList;
 
-    public EnumMapperValue1(EnumMapperBasic enumMapperBasic) {
-        this.code = enumMapperBasic.getCode();
-        this.title = enumMapperBasic.getTitle();
-
+    public EnumMapperValue(EnumMapperType enumMapperType) {
+        this.code = enumMapperType.getCode();
+        this.title = enumMapperType.getTitle();
     }
+
+    /*public EnumMapperValue(EnumMapperType enumMapperType, List<EnumMapperValue> itemList) {
+        this.code = enumMapperType.getCode();
+        this.title = enumMapperType.getTitle();
+        this.itemList = itemList;
+    }*/
 
     public String getCode(){return code;}
     public String getTitle(){return title;}
+
+    //public List<EnumMapperValue> getItemList(){return itemList;}
 
     @Override
     public String toString() {
