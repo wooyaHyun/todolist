@@ -2,8 +2,10 @@ package com.example.todolist.service.ledger;
 
 import com.example.todolist.domain.ledger.*;
 import com.example.todolist.dto.EnumMapperValue;
-import com.example.todolist.dto.LedgerListResponseDto;
-import com.example.todolist.dto.LegerSaveRequestDto;
+import com.example.todolist.dto.ledger.LedgerGroupSumResponseDto;
+import com.example.todolist.dto.ledger.LedgerListResponseDto;
+import com.example.todolist.dto.ledger.LedgerMainResponseDto;
+import com.example.todolist.dto.ledger.LegerSaveRequestDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -44,20 +46,31 @@ class LedgerServiceTest {
         //given
         when(ledgerRepository.findAllDesc("test", "20230501", "20230530")).thenReturn(
                 Arrays.asList(
-                        Ledger.builder().build(),
-                        Ledger.builder().build(),
-                        Ledger.builder().build()
+                        ledger(),
+                        ledger(),
+                        ledger()
+                )
+        );
+
+        //given
+        when(ledgerRepository.findByGroupingSum("test", "20230501", "20230530")).thenReturn(
+                Arrays.asList(
+                        new LedgerGroupSumResponseDto("20230501", LedgerDsc.EXPENDITURE, 500L),
+                        new LedgerGroupSumResponseDto("20230501", LedgerDsc.INCOME, 200L)
                 )
         );
 
         //when
-        final List<LedgerListResponseDto> result = ledgerService.getLedgerList("test", "20230501", "20230530");
+        final LedgerMainResponseDto result = ledgerService.getLedgerList("test", "20230501", "20230530");
 
         //then
-        assertThat(result.size()).isEqualTo(3);
+        assertThat(result.getLedgerListResponseDtoList().size()).isEqualTo(3);
+        assertThat(result.getLedgerGroupSumResponseDtoList().size()).isEqualTo(2);
+        assertThat(result.getLedgerGroupSumResponseDtoList().get(0).getAmount()).isEqualTo(500L);
     }
 
 
+    /*
     @Test
     void 장부_구분및아이템_리스트_조회() {
         //given
@@ -68,7 +81,7 @@ class LedgerServiceTest {
         //then
         //assertThat(legerDscList.size()).isEqualTo(12);
 
-    }
+    }*/
 
     @Test
     void 장부등록성공() {

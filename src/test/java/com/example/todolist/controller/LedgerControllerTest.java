@@ -3,12 +3,14 @@ package com.example.todolist.controller;
 import com.example.todolist.domain.ledger.Item;
 import com.example.todolist.domain.ledger.Ledger;
 import com.example.todolist.domain.ledger.LedgerDsc;
-import com.example.todolist.dto.LedgerListResponseDto;
-import com.example.todolist.dto.LegerSaveRequestDto;
+import com.example.todolist.dto.ledger.LedgerGroupSumResponseDto;
+import com.example.todolist.dto.ledger.LedgerListResponseDto;
+import com.example.todolist.dto.ledger.LedgerMainResponseDto;
+import com.example.todolist.dto.ledger.LegerSaveRequestDto;
 import com.example.todolist.service.ledger.LedgerService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,10 +22,10 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -57,16 +59,19 @@ class LedgerControllerTest {
                 .build();
     }
 
+
     @Test
     void 장부_리스트조회_성공() throws Exception {
         //given
         final String url = "/api/v1/ledgers";
+
+        final List<LedgerListResponseDto> list1 = new ArrayList<>();
+        final List<LedgerGroupSumResponseDto> list2 = new ArrayList<>();
         when(ledgerService.getLedgerList("test", "20230501", "20230530")).thenReturn(
-                Arrays.asList(
-                        new LedgerListResponseDto(ledger()),
-                        new LedgerListResponseDto(ledger()),
-                        new LedgerListResponseDto(ledger())
-                )
+            LedgerMainResponseDto.builder()
+                    .ledgerListResponseDtoList(list1)
+                    .ledgerGroupSumResponseDtoList(list2)
+                    .build()
         );
 
         //when

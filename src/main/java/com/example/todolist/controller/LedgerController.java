@@ -2,8 +2,9 @@ package com.example.todolist.controller;
 
 import com.example.todolist.config.EnumMapper;
 import com.example.todolist.dto.EnumMapperValue;
-import com.example.todolist.dto.LedgerListResponseDto;
-import com.example.todolist.dto.LegerSaveRequestDto;
+import com.example.todolist.dto.ledger.LedgerListResponseDto;
+import com.example.todolist.dto.ledger.LedgerMainResponseDto;
+import com.example.todolist.dto.ledger.LegerSaveRequestDto;
 import com.example.todolist.service.ledger.LedgerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,7 @@ public class LedgerController {
     private final EnumMapper enumMapper;
 
     @GetMapping("/api/v1/ledgers")
-    public ResponseEntity<List<LedgerListResponseDto>> getLedgerList(
+    public ResponseEntity<LedgerMainResponseDto> getLedgerList(
             @RequestParam("userId") String userId, @RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
 
         return ResponseEntity.ok(ledgerService.getLedgerList(userId, fromDate, toDate));

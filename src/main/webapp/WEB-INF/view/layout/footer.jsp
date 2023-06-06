@@ -25,7 +25,7 @@ $.datepicker.setDefaults({
 
 $(function () {
   $('.datepicker').datepicker({
-     $('.datepicker').datepicker('setDate', 'today');
+
   });
 
 });

@@ -1,4 +1,4 @@
-package com.example.todolist.dto;
+package com.example.todolist.dto.ledger;
 
 import com.example.todolist.domain.ledger.Item;
 import com.example.todolist.domain.ledger.Ledger;
@@ -22,15 +22,15 @@ public class LedgerListResponseDto {
 
     private Long id;
     private String useDate;
-    private LedgerDsc ledgerDsc;
-    private Item item;
+    private String ledgerDsc;
+    private String item;
     private int amount;
 
     public LedgerListResponseDto(Ledger entity){
         this.id = entity.getId();
         this.useDate = entity.getUseDate();
-        this.ledgerDsc = entity.getLedgerDsc();
-        this.item = entity.getItem();
+        this.ledgerDsc = entity.getLedgerDsc().getTitle();
+        this.item = entity.getItem().getTitle();
         this.amount = entity.getAmount();
     }
 
