@@ -21,7 +21,6 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'javax.servlet:jstl'  // JSTL을 사용할 경우 추가해야하는 라이브러리
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' // JSP를 페이지로 인식하기 위한 라이브러리
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
 	implementation group: 'org.webjars', name: 'jquery', version: '3.6.0'
