@@ -1,13 +1,15 @@
 package com.example.todolist.config.auth;
 
-import jakarta.servlet.DispatcherType;
+import com.example.todolist.domain.user.Role;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -25,9 +27,18 @@ import org.springframework.security.web.SecurityFilterChain;
  */
 
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private final MyUserDetailsService myUserDetailsService;
+
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -40,24 +51,24 @@ public class SecurityConfig {
         http
                 .csrf().disable().headers().frameOptions().disable().and() //h2-console 화면을 사용하기 위해 해당 옵션들을 disable 합니다.
                 .authorizeHttpRequests()
-                .requestMatchers("/", "/user/**", "/h2-console/**").permitAll()
-                .requestMatchers(PathRequest.toH2Console()).permitAll()	// 추가
+                .requestMatchers("/", "/user/**", "/login-proc").permitAll()
+                .requestMatchers(PathRequest.toH2Console()).permitAll()    // 추가
+                .requestMatchers("/ledgers/**", "/api/v1/**").hasRole(Role.USER.name())
+                .requestMatchers("/admins/**").hasRole(Role.ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/user/login")
+                .loginProcessingUrl("/login-proc")
                 .defaultSuccessUrl("/ledgers", true)
                 .and()
                 .logout()
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/")
+                .and()
+                .userDetailsService(myUserDetailsService);
 
 
         return http.build();
     }
 
-
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new SimplePasswordEncoder();
-    }
 }

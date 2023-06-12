@@ -34,13 +34,14 @@ $("#duplicateChek").click(function(){
             alert("사용 가능한 ID 입니다. ");
             $("#joinBtn").attr("disabled", false);
         }else{
-            alert("ID가 이미 존재합니다. ");
+            alert("이미 가입된 회원입니다.");
             $("#username").val("");
         }
 
     }).fail(function(error){
         console.log(error);
         alert(JSON.stringify(error));
+        console.log(error);
     });
 });
 
