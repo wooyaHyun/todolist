@@ -23,7 +23,6 @@ import lombok.NoArgsConstructor;
 @Getter
 public class LegerSaveRequestDto {
 
-    private String userId;
     private String useDate;
     private LedgerDsc ledgerDsc;
     private Item item;
@@ -31,8 +30,7 @@ public class LegerSaveRequestDto {
     private String cntn;
 
     @Builder
-    public LegerSaveRequestDto(String userId, String useDate, LedgerDsc ledgerDsc, Item item, int amount, String cntn) {
-        this.userId = userId;
+    public LegerSaveRequestDto(String useDate, LedgerDsc ledgerDsc, Item item, int amount, String cntn) {
         this.useDate = useDate;
         this.ledgerDsc = ledgerDsc;
         this.item = item;
@@ -40,7 +38,7 @@ public class LegerSaveRequestDto {
         this.cntn = cntn;
     }
 
-    public Ledger toEntity() {
+    public Ledger toEntity(String userId) {
         return Ledger.builder()
                 .userId(userId)
                 .useDate(useDate)

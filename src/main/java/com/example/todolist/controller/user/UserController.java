@@ -23,18 +23,11 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/user/join")
-    public String userJoin(@ModelAttribute @Valid MemberJoinRequestDto requestDto) {
-        System.out.println("requestDto ::: " + requestDto.toString() );
-        userService.addUser(requestDto);
-
-        return "user/login";
-    }
 
     @ResponseBody
     @GetMapping("/user/{username}/exists")

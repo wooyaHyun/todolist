@@ -1,6 +1,7 @@
 package com.example.todolist.domain.ledger;
 
 import com.example.todolist.domain.BaseTimeEntity;
+import com.example.todolist.dto.ledger.LegerSaveRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -48,5 +49,14 @@ public class Ledger extends BaseTimeEntity {
     @Column
     private String cntn;
 
+
+    public void update(LegerSaveRequestDto dto){
+        this.useDate = dto.getUseDate();
+        this.ledgerDsc = dto.getLedgerDsc();
+        this.item = dto.getItem();
+        this.amount = dto.getAmount();
+        this.cntn = dto.getCntn();
+
+    }
 
 }

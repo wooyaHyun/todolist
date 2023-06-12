@@ -1,4 +1,4 @@
-package com.example.todolist.config;
+package com.example.todolist.dto;
 
 import com.example.todolist.dto.EnumMapperType;
 import com.example.todolist.dto.EnumMapperValue;
