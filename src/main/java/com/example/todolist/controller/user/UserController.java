@@ -38,8 +38,8 @@ public class UserController {
 
     @ResponseBody
     @GetMapping("/user/{username}/exists")
-    public boolean userDuplicatedChecked(@PathVariable String username) {
-        System.out.println("username ::: " + username );
-        return userService.existsByUserId(username);
+    public ResponseEntity<Boolean> userDuplicatedChecked(@PathVariable String username) throws Exception{
+
+        return ResponseEntity.ok(userService.existsByUserId(username));
     }
 }

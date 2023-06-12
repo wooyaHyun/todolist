@@ -4,7 +4,10 @@ import com.example.todolist.dto.user.MemberJoinRequestDto;
 import com.example.todolist.service.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,9 +45,15 @@ public class IndexController {
         return "user/join";
     }
 
+    @GetMapping("/admins")
+    public String adminPage(){
+        return "admin/admin";
+    }
 
     @GetMapping("/ledgers")
-    public String ledgers(){
+    public String ledgers(@AuthenticationPrincipal UserDetails userDetails, Model model){
+        model.addAttribute("userName", userDetails.getUsername());
+        model.addAttribute("roles", userDetails.getAuthorities());
         return "ledger/ledger";
     }
 

@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * packageName : com.example.todolist.dto.user
@@ -38,10 +39,10 @@ public class MemberJoinRequestDto {
         this.password = password;
     }
 
-    public Member toEntity(){
+    public Member toEntity(PasswordEncoder passwordEncoder){
         return Member.builder()
                 .userId(username)
-                .password(password)
+                .password(passwordEncoder.encode(password))
                 .role(Role.USER)
                 .build();
     }

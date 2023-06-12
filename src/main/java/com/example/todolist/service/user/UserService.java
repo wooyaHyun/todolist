@@ -5,6 +5,7 @@ import com.example.todolist.domain.user.UserRepository;
 import com.example.todolist.dto.ledger.LegerSaveRequestDto;
 import com.example.todolist.dto.user.MemberJoinRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,13 +27,21 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public boolean existsByUserId(String username) {
-        return userRepository.existsByUserId(username);
+    public boolean existsByUserId(String username) throws Exception{
+        boolean flag = userRepository.existsByUserId(username);
+        System.out.println("flag :::" + flag);
+
+        if(flag == true){
+            throw new IllegalArgumentException("이미 가입된 회원입니다.");
+        }
+        return flag;
     }
 
     public String addUser(MemberJoinRequestDto requestDto) {
-        return userRepository.save(requestDto.toEntity()).getUserId();
+        System.out.println("passwordEncoder" + passwordEncoder.encode(requestDto.getPassword()));
+        return userRepository.save(requestDto.toEntity(passwordEncoder)).getUserId();
     }
 
 

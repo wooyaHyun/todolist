@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * packageName : com.example.todolist.config.auth
@@ -29,16 +30,18 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("spring security :::" + username);
         return findByUsername(username);
     }
 
 
+    @Transactional(readOnly = true)
     private UserDetails findByUsername(String username){
-        Member member = userRepository.findByUserId(username).orElseThrow(() -> new RuntimeException("없는 회원 입니다..."));
+        Member member = userRepository.findByUserId(username).orElseThrow(() -> new UsernameNotFoundException("없는 회원 입니다..."));
         return User.builder()
                 .username(member.getUserId())
                 .password(member.getPassword())
-                .roles(member.getRole().getKey())
+                .roles(member.getRole().name())
                 .build();
     }
 }
