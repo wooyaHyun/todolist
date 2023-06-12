@@ -73,7 +73,9 @@ $("#insertPage").click(function(){
 });
 
 $("#tbodyList").on("click", ".btnDtl", function(){
-    console.log($(this).attr("id"));
+    let id = $(this).attr("id");
+
+    window.location.href = "/ledgers/update/"+ id;
 
 });
 

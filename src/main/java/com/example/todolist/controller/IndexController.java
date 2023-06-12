@@ -1,6 +1,8 @@
 package com.example.todolist.controller;
 
+import com.example.todolist.dto.ledger.LedgerResponseDto;
 import com.example.todolist.dto.user.MemberJoinRequestDto;
+import com.example.todolist.service.ledger.LedgerService;
 import com.example.todolist.service.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -8,10 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * packageName : com.example.todolist.controller
@@ -29,6 +28,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class IndexController {
 
+    private final LedgerService ledgerService;
+    private final UserService userService;
+
     @GetMapping("/")
     public String index(){
 
@@ -43,6 +45,14 @@ public class IndexController {
     @GetMapping("/user/join")
     public String join(){
         return "user/join";
+    }
+
+    @PostMapping("/user/join")
+    public String userJoin(@ModelAttribute @Valid MemberJoinRequestDto requestDto) {
+        System.out.println("requestDto ::: " + requestDto.toString() );
+        userService.addUser(requestDto);
+
+        return "user/login";
     }
 
     @GetMapping("/admins")
@@ -60,6 +70,13 @@ public class IndexController {
     @GetMapping("/ledgers/save")
     public String ledgersSave(){
         return "ledger/ledgers-save";
+    }
+
+    @GetMapping("/ledgers/update/{id}")
+    public String ledgersUpdate(@PathVariable Long id, Model model){
+        LedgerResponseDto dto = ledgerService.getLedgerOne(id);
+        model.addAttribute("ledger", dto);
+        return "ledger/ledgers-update";
     }
 
 }

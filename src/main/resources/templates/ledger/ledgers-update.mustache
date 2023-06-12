@@ -1,10 +1,13 @@
 {{>layout/header}}
 
+
 <div>
-    <h3 id="titleMonth">장부시스템_등록</h3> <span><button id="back">이전</button><button id="save">등록</button></span>
+    <h3 id="titleMonth">장부시스템_수정</h3> <span><button id="back">이전</button><button id="update">저장</button></span>
+
+    <input type="hidden" id="id" name="id" value="{{ledger.id}}" />
 
     </br></br></br>
-    <input id="useDate" class="datepicker" readonly />
+    <input id="useDate" class="datepicker"  readonly />
     </br>
     </br>
     지출수입 구분
@@ -18,11 +21,11 @@
     </br>
     </br>
     금액 입력
-    <input type="text" id="amount" placeholder="금액을 입력하세요" />
+    <input type="text" id="amount" placeholder="금액을 입력하세요" value="{{ledger.amount}}" />
     </br>
     </br>
     사용내용
-    <textarea  id="cntn" > </textarea>
+    <textarea  id="cntn" >{{ledger.cntn}}</textarea>
 </div>
 
 {{>layout/footer}}
@@ -45,7 +48,7 @@ const regex = /[^0-9]/g;
 
 
 //-------event-------------
-$("#save").click(function(){
+$("#update").click(function(){
     let useDate = $("#useDate").val();
     useDate = useDate.replace(regex, "");
     const data = {
@@ -53,18 +56,20 @@ $("#save").click(function(){
         amount : $('#amount').val(),
         ledgerDsc : $('#dsc').val(),
         item : $('#item').val(),
-        useDate : useDate
+        useDate : useDate,
     };
 
+    var id = $("#id").val();
+
     $.ajax({
-        type: 'post',
-        url: '/api/v1/ledgers',
+        type: 'PUT',
+        url: '/api/v1/ledgers/'+ id,
         dataType : 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(data)
 
     }).done(function(){
-        alert("장부가 등록되었습니다. ");
+        alert("장부가 수정되었습니다. ");
         window.location.href = '/ledgers';
     }).fail(function(error){
         alert(JSON.stringify(error));
@@ -113,12 +118,17 @@ const selectLedgerDscListCallback = function(res){
     });
 
     $("#dsc").append(html);
+
+    const dscTmp = "{{ledger.ledgerDsc}}";
+    $("#dsc").val(dscTmp).prop("selected", true);
+
+
     itemListCallback($("#dsc").val());
 
 }
 
 const itemListCallback = function(str){
-
+    console.log(str);
     $("#item").empty();
 
     let html = '';
@@ -134,15 +144,27 @@ const itemListCallback = function(str){
     }
 
     $("#item").append(html);
+
+
+
 }
 
 
 const init = function(){
 
-
     selectLedgerDscList();
+    const ddd = "{{ledger.useDate}}";
 
-    setTimeout(() => $('.datepicker').datepicker("setDate", date ), 100);
+    const y = ddd.substr(0,4);
+    const m = ddd.substr(4,2);
+    const d = ddd.substr(6,2);
+
+    const dateTmp = new Date(y, m-1, d);
+
+    setTimeout(() => $('.datepicker').datepicker("setDate", dateTmp ), 200);
+
+    const itemTmp = "{{ledger.item}}";
+    $("#item").val(itemTmp).prop("selected", true);
 }
 
 

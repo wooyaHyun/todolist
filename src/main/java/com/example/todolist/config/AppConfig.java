@@ -1,7 +1,7 @@
 package com.example.todolist.config;
 
-import com.example.todolist.domain.ledger.Item;
 import com.example.todolist.domain.ledger.LedgerDsc;
+import com.example.todolist.dto.EnumMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

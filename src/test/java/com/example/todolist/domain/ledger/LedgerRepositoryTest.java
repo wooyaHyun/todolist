@@ -1,11 +1,15 @@
 package com.example.todolist.domain.ledger;
 
 import com.example.todolist.dto.ledger.LedgerGroupSumResponseDto;
+import com.example.todolist.dto.ledger.LedgerListResponseDto;
+import com.example.todolist.dto.ledger.LedgerTuple;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -97,21 +101,48 @@ class LedgerRepositoryTest {
                 .cntn("친구 올라옴")
                 .build();
 
+        final Ledger ledger5= Ledger.builder()
+                .ledgerDsc(LedgerDsc.INCOME)
+                .userId("test")
+                .useDate("20230517")
+                .item(Item.GIFT_CARD)
+                .amount(999)
+                .cntn("친구 올라옴")
+                .build();
+
         //when
         ledgerRepository.save(ledger1);
         ledgerRepository.save(ledger2);
         ledgerRepository.save(ledger3);
         ledgerRepository.save(ledger4);
+        ledgerRepository.save(ledger5);
 
         List<LedgerGroupSumResponseDto> result = ledgerRepository.findByGroupingSum("test", "20230514", "20230520");
 
+
+        List<LedgerListResponseDto> ledgerList = ledgerRepository.findAllDesc("test", "20230514", "20230520").stream().map(LedgerListResponseDto::new).collect(Collectors.toList());
+
+        Map<LedgerTuple, Integer> collect1 = ledgerList.stream().collect(Collectors.groupingBy(ledger -> new LedgerTuple(ledger.getUseDate(), ledger.getLedgerDsc()), Collectors.summingInt(LedgerListResponseDto::getAmount)));
+
+        Map<String, Map<String, Integer>> collect = ledgerList.stream().collect(Collectors.groupingBy(LedgerListResponseDto::getUseDate, Collectors.groupingBy(LedgerListResponseDto::getLedgerDsc, Collectors.summingInt(LedgerListResponseDto::getAmount))));
+
+        System.out.println("=============================");
+        System.out.println("=============================");
+        System.out.println("=============================");
+        System.out.println("collect = " + collect.toString());
+        System.out.println("collect1 = " + collect1.toString());
+        System.out.println("=============================");
+        System.out.println("=============================");
+        System.out.println("=============================");
+
+
         //then
         assertThat(result).isNotNull();
-        assertThat(result.size()).isEqualTo(2);
+        assertThat(result.size()).isEqualTo(3);
 
-        for (LedgerGroupSumResponseDto s : result) {
+       /* for (LedgerGroupSumResponseDto s : result) {
             System.out.println("s = " + s.getAmount());
-        }
+        }*/
 
     }
 

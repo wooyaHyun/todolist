@@ -1,12 +1,10 @@
 package com.example.todolist.service.ledger;
 
+import com.example.todolist.domain.ledger.Ledger;
 import com.example.todolist.domain.ledger.LedgerDsc;
 import com.example.todolist.domain.ledger.LedgerRepository;
 import com.example.todolist.dto.EnumMapperValue;
-import com.example.todolist.dto.ledger.LedgerGroupSumResponseDto;
-import com.example.todolist.dto.ledger.LedgerListResponseDto;
-import com.example.todolist.dto.ledger.LedgerMainResponseDto;
-import com.example.todolist.dto.ledger.LegerSaveRequestDto;
+import com.example.todolist.dto.ledger.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,9 +32,9 @@ public class LedgerService {
     private final LedgerRepository ledgerRepository;
 
     @Transactional
-    public Long save(LegerSaveRequestDto requestDto) {
+    public Long save(String userId, LegerSaveRequestDto requestDto) {
 
-        return ledgerRepository.save(requestDto.toEntity()).getId();
+        return ledgerRepository.save(requestDto.toEntity(userId)).getId();
     }
 
 
@@ -60,4 +58,17 @@ public class LedgerService {
                 .build();
     }
 
+    public LedgerResponseDto getLedgerOne(Long id) {
+        Ledger ledger = ledgerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 장부가 없습니다." + id));
+
+        return new LedgerResponseDto(ledger);
+    }
+
+    @Transactional
+    public Long update(Long id, LegerSaveRequestDto requestDto) {
+        Ledger ledger = ledgerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 장부가 없습니다." + id));
+
+        ledger.update(requestDto);
+        return id;
+    }
 }

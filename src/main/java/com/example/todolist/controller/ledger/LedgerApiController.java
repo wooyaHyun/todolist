@@ -1,6 +1,6 @@
 package com.example.todolist.controller.ledger;
 
-import com.example.todolist.config.EnumMapper;
+import com.example.todolist.dto.EnumMapper;
 import com.example.todolist.dto.EnumMapperValue;
 import com.example.todolist.dto.ledger.LedgerMainResponseDto;
 import com.example.todolist.dto.ledger.LegerSaveRequestDto;
@@ -9,6 +9,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,14 +37,14 @@ public class LedgerApiController {
 
     @GetMapping("/api/v1/ledgers")
     public ResponseEntity<LedgerMainResponseDto> getLedgerList(
-            @RequestParam("userId") String userId, @RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
+            @AuthenticationPrincipal UserDetails userDetails, @RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
 
-        return ResponseEntity.ok(ledgerService.getLedgerList(userId, fromDate, toDate));
+        return ResponseEntity.ok(ledgerService.getLedgerList(userDetails.getUsername(), fromDate, toDate));
     }
 
     @PostMapping("/api/v1/ledgers")
-    public ResponseEntity<Long> addLedger(@RequestBody @Valid LegerSaveRequestDto requestDto) {
-        Long save = ledgerService.save(requestDto);
+    public ResponseEntity<Long> addLedger(@AuthenticationPrincipal UserDetails userDetails, @RequestBody @Valid LegerSaveRequestDto requestDto) {
+        Long save = ledgerService.save(userDetails.getUsername(), requestDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(save);
     }
@@ -51,5 +53,10 @@ public class LedgerApiController {
     public ResponseEntity<Map<String, List<EnumMapperValue>>> getLedgerDscList() {
         //return ResponseEntity.ok(ledgerService.getLegerDscList());
         return ResponseEntity.ok(enumMapper.getAll());
+    }
+
+    @PutMapping("/api/v1/ledgers/{id}")
+    public ResponseEntity<Long> update(@PathVariable Long id, @RequestBody LegerSaveRequestDto requestDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(ledgerService.update(id, requestDto));
     }
 }
