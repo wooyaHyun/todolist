@@ -1,8 +1,7 @@
-package com.example.todolist.controller;
+package com.example.todolist.controller.ledger;
 
 import com.example.todolist.config.EnumMapper;
 import com.example.todolist.dto.EnumMapperValue;
-import com.example.todolist.dto.ledger.LedgerListResponseDto;
 import com.example.todolist.dto.ledger.LedgerMainResponseDto;
 import com.example.todolist.dto.ledger.LegerSaveRequestDto;
 import com.example.todolist.service.ledger.LedgerService;
@@ -29,7 +28,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
-public class LedgerController {
+public class LedgerApiController {
 
     private final LedgerService ledgerService;
     private final EnumMapper enumMapper;

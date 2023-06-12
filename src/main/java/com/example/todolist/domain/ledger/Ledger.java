@@ -19,13 +19,13 @@ import org.hibernate.annotations.ColumnDefault;
 
 @Getter
 @Entity
-@NoArgsConstructor(access =  AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @AllArgsConstructor
 public class Ledger extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 20)

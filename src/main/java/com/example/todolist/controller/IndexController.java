@@ -1,7 +1,14 @@
 package com.example.todolist.controller;
 
+import com.example.todolist.dto.user.MemberJoinRequestDto;
+import com.example.todolist.service.user.UserService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * packageName : com.example.todolist.controller
@@ -15,7 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * 2023-05-22   SHW     최초 생성
  */
 
-
+@RequiredArgsConstructor
 @Controller
 public class IndexController {
 
@@ -24,6 +31,17 @@ public class IndexController {
 
         return "index";
     }
+
+    @GetMapping("/user/login")
+    public String loginPage(){
+        return "user/login";
+    }
+
+    @GetMapping("/user/join")
+    public String join(){
+        return "user/join";
+    }
+
 
     @GetMapping("/ledgers")
     public String ledgers(){

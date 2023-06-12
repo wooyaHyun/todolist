@@ -1,0 +1,26 @@
+{{>layout/header}}
+
+
+
+<h2>장부 웹서비스 </h2>
+
+{{#userName}} <!-- true false 여부 확인(머스타치는 if 문 없음) -->
+    <a href="/ledgers" role="button" class="btn btn-primary">장부 메인 이동</a>
+{{/userName}}
+
+
+{{^userName}}<!-- 해당 값이 존재하지 않는 경우 -->
+    <a href="/user/login" class="btn btn-info active" role="button">로그인</a><!--스프링시큐리티에서 기본적으로 제공하는 로그아웃 url-->
+{{/userName}}
+
+
+
+
+
+{{>layout/footer}}
+
+
+<script>
+
+
+</script>

@@ -1,5 +1,6 @@
 package com.example.todolist.controller;
 
+import com.example.todolist.controller.ledger.LedgerApiController;
 import com.example.todolist.domain.ledger.Item;
 import com.example.todolist.domain.ledger.Ledger;
 import com.example.todolist.domain.ledger.LedgerDsc;
@@ -10,7 +11,6 @@ import com.example.todolist.dto.ledger.LegerSaveRequestDto;
 import com.example.todolist.service.ledger.LedgerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,7 +23,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -46,7 +45,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class LedgerControllerTest {
 
     @InjectMocks
-    private LedgerController ledgerController;
+    private LedgerApiController ledgerController;
 
     @Mock
     private LedgerService ledgerService;

@@ -1,0 +1,45 @@
+package com.example.todolist.controller.user;
+
+import com.example.todolist.dto.user.MemberJoinRequestDto;
+import com.example.todolist.service.user.UserService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * packageName : com.example.todolist.controller.user
+ * fileName : UserController
+ * author : SHW
+ * date : 2023-06-11
+ * description :
+ * ===========================================================
+ * DATE      AUTHOR      NOTE
+ * -----------------------------------------------------------
+ * 2023-06-11   SHW     최초 생성
+ */
+
+@Slf4j
+@RequiredArgsConstructor
+@Controller
+public class UserController {
+
+    private final UserService userService;
+
+    @PostMapping("/user/join")
+    public String userJoin(@ModelAttribute @Valid MemberJoinRequestDto requestDto) {
+        System.out.println("requestDto ::: " + requestDto.toString() );
+        userService.addUser(requestDto);
+
+        return "user/login";
+    }
+
+    @ResponseBody
+    @GetMapping("/user/{username}/exists")
+    public boolean userDuplicatedChecked(@PathVariable String username) {
+        System.out.println("username ::: " + username );
+        return userService.existsByUserId(username);
+    }
+}

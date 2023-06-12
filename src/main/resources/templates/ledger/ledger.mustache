@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/view/layout/header.jsp" %>
+{{>layout/header}}
 
 <input type="hidden" id="userId" name="userName" value="test" />
 <div>
@@ -13,44 +12,44 @@
     <br>
     <br>
     <h4>일별 지출 수입 합</h3>
-    <table class="table table-horizontal table-bordered">
-        <thead class="thead-strong">
-        <tr id="thead">
-           <th>장부번호</th>
-           <th>사용일자</th>
-           <th>장부번호</th>
-           <th>장부번호</th>
-           <th>장부번호</th>
-           <th>장부번호</th>
-           <th>장부번호</th>
-        </tr>
-        </thead>
-        <tbody id="tbody">
-        </tbody>
-    </table>
+        <table class="table table-horizontal table-bordered">
+            <thead class="thead-strong">
+            <tr id="thead">
+                <th>장부번호</th>
+                <th>사용일자</th>
+                <th>장부번호</th>
+                <th>장부번호</th>
+                <th>장부번호</th>
+                <th>장부번호</th>
+                <th>장부번호</th>
+            </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
 
-    <br>
-    <br>
-    <br>
-    <h4>일주일 사용내역</h3>
-    <table class="table table-horizontal table-bordered">
-        <thead class="thead-strong">
-        <tr id="theadList">
-           <th>사용일자</th>
-           <th>구분</th>
-           <th>항목</th>
-           <th>금액</th>
-        </tr>
-        </thead>
-        <tbody id="tbodyList">
-        </tbody>
-    </table>
+        <br>
+        <br>
+        <br>
+        <h4>일주일 사용내역</h3>
+            <table class="table table-horizontal table-bordered">
+                <thead class="thead-strong">
+                <tr id="theadList">
+                    <th>사용일자</th>
+                    <th>구분</th>
+                    <th>항목</th>
+                    <th>금액</th>
+                </tr>
+                </thead>
+                <tbody id="tbodyList">
+                </tbody>
+            </table>
 </div>
 
 
+{{>layout/footer}}
 
 
-<%@ include file="/WEB-INF/view/layout/footer.jsp" %>
 
 <script>
 //-------init variable-------------

@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<%@ include file="/WEB-INF/view/layout/header.jsp" %>
+{{>layout/header}}
 
 <input type="hidden" id="userId" name="userName" value="test" />
 <div>
@@ -8,28 +6,27 @@
 
     </br></br></br>
     <input id="useDate" class="datepicker" readonly />
-</br>
-</br>
+    </br>
+    </br>
     지출수입 구분
     <select id="dsc" >
     </select>
-</br>
-</br>
+    </br>
+    </br>
     항목선택
     <select id="item" >
     </select>
-</br>
-</br>
+    </br>
+    </br>
     금액 입력
     <input type="text" id="amount" placeholder="금액을 입력하세요" />
-</br>
-</br>
+    </br>
+    </br>
     사용내용
     <textarea  id="cntn" > </textarea>
 </div>
 
-<%@ include file="/WEB-INF/view/layout/footer.jsp" %>
-
+{{>layout/footer}}
 
 <script>
 
