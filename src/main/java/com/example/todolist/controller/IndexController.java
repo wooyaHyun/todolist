@@ -62,8 +62,12 @@ public class IndexController {
 
     @GetMapping("/ledgers")
     public String ledgers(@AuthenticationPrincipal UserDetails userDetails, Model model){
-        model.addAttribute("userName", userDetails.getUsername());
-        model.addAttribute("roles", userDetails.getAuthorities());
+
+        if(userDetails != null){
+            model.addAttribute("userName", userDetails.getUsername());
+            model.addAttribute("roles", userDetails.getAuthorities());
+        }
+
         return "ledger/ledger";
     }
 

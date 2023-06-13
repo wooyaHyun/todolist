@@ -6,6 +6,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 /**
  * packageName : com.example.todolist.domain.user
@@ -22,6 +24,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@SQLDelete(sql = "UPDATE Member m SET m.deleted = true WHERE m.id = ?")
+@Where(clause = "deleted = false")
 public class Member extends BaseTimeEntity {
 
     @Id
@@ -37,6 +41,9 @@ public class Member extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @Column
+    private boolean deleted;
 
 
     @Builder

@@ -38,15 +38,20 @@ public class LedgerApiController {
     @GetMapping("/api/v1/ledgers")
     public ResponseEntity<LedgerMainResponseDto> getLedgerList(
             @AuthenticationPrincipal UserDetails userDetails, @RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
-
-        return ResponseEntity.ok(ledgerService.getLedgerList(userDetails.getUsername(), fromDate, toDate));
+        if(userDetails != null){
+            return ResponseEntity.ok(ledgerService.getLedgerList(userDetails.getUsername(), fromDate, toDate));
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/api/v1/ledgers")
     public ResponseEntity<Long> addLedger(@AuthenticationPrincipal UserDetails userDetails, @RequestBody @Valid LegerSaveRequestDto requestDto) {
         Long save = ledgerService.save(userDetails.getUsername(), requestDto);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(save);
+        if(userDetails != null){
+            return ResponseEntity.status(HttpStatus.CREATED).body(save);
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     @GetMapping("/api/v1/ledger-dsc")
@@ -59,4 +64,9 @@ public class LedgerApiController {
     public ResponseEntity<Long> update(@PathVariable Long id, @RequestBody LegerSaveRequestDto requestDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ledgerService.update(id, requestDto));
     }
+
+    /*@DeleteMapping("/api/v1/ledgers/{id}")
+    public ResponseEntity<Long> delete(@PathVariable Long id){
+        //return ResponseEntity.ok(ledgerService.);
+    }*/
 }

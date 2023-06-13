@@ -5,6 +5,8 @@ import com.example.todolist.dto.ledger.LegerSaveRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 /**
  * packageName : com.example.todolist.domain.ledger
@@ -23,6 +25,8 @@ import org.hibernate.annotations.ColumnDefault;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @AllArgsConstructor
+@SQLDelete(sql = "UPDATE Ledger l SET l.deleted = true WHERE m.id = ?")
+@Where(clause = "deleted = false")
 public class Ledger extends BaseTimeEntity {
 
     @Id
@@ -48,6 +52,9 @@ public class Ledger extends BaseTimeEntity {
 
     @Column
     private String cntn;
+
+    @Column
+    private boolean deleted;
 
 
     public void update(LegerSaveRequestDto dto){
