@@ -38,14 +38,14 @@ public class LedgerService {
     }
 
 
-    @Transactional(readOnly = true)
+    /*@Transactional(readOnly = true)
     public List<EnumMapperValue> getLegerDscList() {
 
         //return Stream.of(LedgerDsc.values()).collect(Collectors.toList());
         return Stream.of(LedgerDsc.values())
                 .map(EnumMapperValue::new)
                 .collect(Collectors.toList());
-    }
+    }*/
 
     @Transactional(readOnly = true)
     public LedgerMainResponseDto getLedgerList(final String userId, final String fromDate, final String toDate) {
@@ -70,5 +70,12 @@ public class LedgerService {
 
         ledger.update(requestDto);
         return id;
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Ledger ledger = ledgerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 장부가 없습니다." + id));
+
+        ledgerRepository.deleteById(id);
     }
 }

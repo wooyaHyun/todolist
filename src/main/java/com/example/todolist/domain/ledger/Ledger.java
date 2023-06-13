@@ -25,7 +25,7 @@ import org.hibernate.annotations.Where;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @AllArgsConstructor
-@SQLDelete(sql = "UPDATE Ledger l SET l.deleted = true WHERE m.id = ?")
+@SQLDelete(sql = "UPDATE Ledger l SET l.deleted = true WHERE l.id = ?")
 @Where(clause = "deleted = false")
 public class Ledger extends BaseTimeEntity {
 

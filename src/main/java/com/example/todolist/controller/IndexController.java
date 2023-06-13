@@ -1,9 +1,12 @@
 package com.example.todolist.controller;
 
+import com.example.todolist.config.auth.dto.LoginUser;
+import com.example.todolist.config.auth.dto.SessionUser;
 import com.example.todolist.dto.ledger.LedgerResponseDto;
 import com.example.todolist.dto.user.MemberJoinRequestDto;
 import com.example.todolist.service.ledger.LedgerService;
 import com.example.todolist.service.user.UserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,6 +33,7 @@ public class IndexController {
 
     private final LedgerService ledgerService;
     private final UserService userService;
+    private final HttpSession httpSession;
 
     @GetMapping("/")
     public String index(){
@@ -61,11 +65,11 @@ public class IndexController {
     }
 
     @GetMapping("/ledgers")
-    public String ledgers(@AuthenticationPrincipal UserDetails userDetails, Model model){
+    public String ledgers(@LoginUser SessionUser user, Model model){
 
-        if(userDetails != null){
-            model.addAttribute("userName", userDetails.getUsername());
-            model.addAttribute("roles", userDetails.getAuthorities());
+        if(user != null){
+            model.addAttribute("userName", user.getUserId());
+            model.addAttribute("roles", user.getRole());
         }
 
         return "ledger/ledger";

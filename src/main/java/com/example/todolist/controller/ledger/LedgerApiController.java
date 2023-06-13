@@ -1,5 +1,7 @@
 package com.example.todolist.controller.ledger;
 
+import com.example.todolist.config.auth.dto.LoginUser;
+import com.example.todolist.config.auth.dto.SessionUser;
 import com.example.todolist.dto.EnumMapper;
 import com.example.todolist.dto.EnumMapperValue;
 import com.example.todolist.dto.ledger.LedgerMainResponseDto;
@@ -37,18 +39,18 @@ public class LedgerApiController {
 
     @GetMapping("/api/v1/ledgers")
     public ResponseEntity<LedgerMainResponseDto> getLedgerList(
-            @AuthenticationPrincipal UserDetails userDetails, @RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
-        if(userDetails != null){
-            return ResponseEntity.ok(ledgerService.getLedgerList(userDetails.getUsername(), fromDate, toDate));
+            @LoginUser SessionUser user, @RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
+        if(user != null){
+            return ResponseEntity.ok(ledgerService.getLedgerList(user.getUserId(), fromDate, toDate));
         }
         return ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/api/v1/ledgers")
-    public ResponseEntity<Long> addLedger(@AuthenticationPrincipal UserDetails userDetails, @RequestBody @Valid LegerSaveRequestDto requestDto) {
-        Long save = ledgerService.save(userDetails.getUsername(), requestDto);
+    public ResponseEntity<Long> addLedger(@LoginUser SessionUser user, @RequestBody @Valid LegerSaveRequestDto requestDto) {
+        Long save = ledgerService.save(user.getUserId(), requestDto);
 
-        if(userDetails != null){
+        if(user != null){
             return ResponseEntity.status(HttpStatus.CREATED).body(save);
         }
         return ResponseEntity.badRequest().build();
@@ -65,8 +67,9 @@ public class LedgerApiController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ledgerService.update(id, requestDto));
     }
 
-    /*@DeleteMapping("/api/v1/ledgers/{id}")
-    public ResponseEntity<Long> delete(@PathVariable Long id){
-        //return ResponseEntity.ok(ledgerService.);
-    }*/
+    @DeleteMapping("/api/v1/ledgers/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        ledgerService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
