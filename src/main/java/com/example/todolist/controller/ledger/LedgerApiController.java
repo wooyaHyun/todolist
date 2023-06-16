@@ -53,6 +53,7 @@ public class LedgerApiController {
         if(user != null){
             return ResponseEntity.status(HttpStatus.CREATED).body(save);
         }
+
         return ResponseEntity.badRequest().build();
     }
 
