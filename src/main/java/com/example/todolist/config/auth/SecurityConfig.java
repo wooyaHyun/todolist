@@ -44,24 +44,37 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable().headers().frameOptions().disable().and() //h2-console 화면을 사용하기 위해 해당 옵션들을 disable 합니다.
-                .authorizeHttpRequests()
-                .requestMatchers("/", "/user/**", "/login-proc").permitAll()
-                .requestMatchers(PathRequest.toH2Console()).permitAll()    // 추가
-                .requestMatchers("/ledgers/**", "/api/v1/**").hasRole(Role.USER.name())
-                .requestMatchers("/admins/**").hasRole(Role.ADMIN.name())
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/user/login")
-                .loginProcessingUrl("/login-proc")
-                .defaultSuccessUrl("/ledgers", true)
-                .and()
-                .logout()
-                .logoutSuccessUrl("/")
-                .and()
+                .csrf((csrfConfig) ->
+                        csrfConfig.disable()
+                )
+                .headers((headerConfig) ->
+                        headerConfig.frameOptions(frameOptionsConfig ->
+                                frameOptionsConfig.disable()
+                        )
+                )
+                .authorizeHttpRequests((authorizeRequests) ->
+                        authorizeRequests
+                                .requestMatchers("/", "/user/**", "/login-proc").permitAll()
+                                .requestMatchers(PathRequest.toH2Console()).permitAll()    // 추가
+                                .requestMatchers("/ledgers/**", "/api/v1/**").hasRole(Role.USER.name())
+                                .requestMatchers("/admins/**").hasRole(Role.ADMIN.name())
+                                .anyRequest().authenticated()
+                )
+                /*.exceptionHandling((exceptionConfig) ->
+                        exceptionConfig
+                                .authenticationEntryPoint(exceptionConfig -> )
+                                .accessDeniedHandler(accessDeniedHandler)
+                )*/
+                .formLogin((formLogin) ->
+                        formLogin
+                                .loginPage("/user/login")
+                                .loginProcessingUrl("/login-proc")
+                                .defaultSuccessUrl("/ledgers", true)
+                )
+                .logout((logoutConfig) ->
+                        logoutConfig.logoutSuccessUrl("/")
+                )
                 .userDetailsService(myUserDetailsService);
-
 
         return http.build();
     }

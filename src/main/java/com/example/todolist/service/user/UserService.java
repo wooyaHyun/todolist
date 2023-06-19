@@ -4,6 +4,9 @@ import com.example.todolist.domain.user.Member;
 import com.example.todolist.domain.user.UserRepository;
 import com.example.todolist.dto.ledger.LegerSaveRequestDto;
 import com.example.todolist.dto.user.MemberJoinRequestDto;
+import com.example.todolist.exception.RestApiException;
+import com.example.todolist.exception.UserErrorCode;
+import com.sun.jdi.request.DuplicateRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,10 +34,9 @@ public class UserService {
 
     public boolean existsByUserId(String username) throws Exception{
         boolean flag = userRepository.existsByUserId(username);
-        System.out.println("flag :::" + flag);
 
-        if(flag == true){
-            throw new IllegalArgumentException("이미 가입된 회원입니다.");
+        if(flag){
+            throw new RestApiException(UserErrorCode.DUPLICATED_MEMBER_REGISTER);
         }
         return flag;
     }

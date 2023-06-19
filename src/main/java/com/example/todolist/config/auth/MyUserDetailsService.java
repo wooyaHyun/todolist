@@ -33,6 +33,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("username" + username);
         Member member = userRepository.findByUserId(username).orElseThrow(() -> new UsernameNotFoundException("없는 회원 입니다..."));
 
         httpSession.setAttribute("user", new SessionUser(member));
