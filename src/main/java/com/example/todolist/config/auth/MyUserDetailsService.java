@@ -5,6 +5,7 @@ import com.example.todolist.domain.user.Member;
 import com.example.todolist.domain.user.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 2023-06-11   SHW     최초 생성
  */
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class MyUserDetailsService implements UserDetailsService {
@@ -33,8 +35,8 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("username" + username);
-        Member member = userRepository.findByUserId(username).orElseThrow(() -> new UsernameNotFoundException("없는 회원 입니다..."));
+        System.out.println("username: " + username);
+        Member member = userRepository.findByUserId(username).orElseThrow(() -> new UsernameNotFoundException(username));
 
         httpSession.setAttribute("user", new SessionUser(member));
 

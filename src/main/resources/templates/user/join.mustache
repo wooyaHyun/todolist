@@ -34,16 +34,11 @@ $("#duplicateChek").click(function(){
             alert("사용 가능한 ID 입니다. ");
             $("#joinBtn").attr("disabled", false);
         }
-        /*
-        else{
-            alert("이미 가입된 회원입니다.");
-            $("#username").val("");
-        }
-        */
+
 
     }).fail(function(error){
         console.log(error);
-        alert(JSON.stringify(error.responseJSON.message));
+        alert(JSON.stringify("code: " + error.responseJSON.code + "  message: " +  error.responseJSON.message));
         console.log(error);
     });
 });

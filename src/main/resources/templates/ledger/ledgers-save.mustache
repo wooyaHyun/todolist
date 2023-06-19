@@ -67,7 +67,7 @@ $("#save").click(function(){
         alert("장부가 등록되었습니다. ");
         window.location.href = '/ledgers';
     }).fail(function(error){
-        alert(JSON.stringify(error));
+        alert(JSON.stringify("code: " + error.responseJSON.code + "  message: " +  error.responseJSON.message));
     });
 });
 

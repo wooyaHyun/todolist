@@ -16,3 +16,19 @@
 
 
 {{>layout/footer}}
+
+<script>
+
+    const init = function(){
+        const URLSearch = new URLSearchParams(location.search);
+        console.log(URLSearch);
+        const message = URLSearch.getAll("exception");
+
+        if(message != ""){
+            alert(message);
+        }
+
+    };
+
+    init();
+</script>
