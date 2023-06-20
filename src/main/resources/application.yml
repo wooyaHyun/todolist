@@ -28,6 +28,9 @@ server:
       force-response: true
 
 
-#logging.level:
-    #   org.hibernate.SQL: debug
-    #org.hibernate.type: trace
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+  #file:
+    #name: ./logs/spring-jpa.log

@@ -80,7 +80,7 @@ public class SecurityConfig {
                 )
                 .exceptionHandling((exceptionConfig) ->
                         exceptionConfig
-                                .authenticationEntryPoint(unauthorizedEntryPoint)
+                                //.authenticationEntryPoint(unauthorizedEntryPoint) /*interceptor에서 미인증 사용자 로그인 페이지로 이동하도록 처리*/
                                 .accessDeniedHandler(accessDeniedHandler)
                 )
                 .formLogin((formLogin) ->

@@ -39,7 +39,6 @@ $("#duplicateChek").click(function(){
     }).fail(function(error){
         console.log(error);
         alert(JSON.stringify("code: " + error.responseJSON.code + "  message: " +  error.responseJSON.message));
-        console.log(error);
     });
 });
 
