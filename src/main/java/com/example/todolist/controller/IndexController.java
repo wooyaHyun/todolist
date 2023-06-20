@@ -53,7 +53,7 @@ public class IndexController {
 
     @PostMapping("/user/join")
     public String userJoin(@ModelAttribute @Valid MemberJoinRequestDto requestDto) {
-        System.out.println("requestDto ::: " + requestDto.toString() );
+
         userService.addUser(requestDto);
 
         return "user/login";
@@ -76,7 +76,11 @@ public class IndexController {
     }
 
     @GetMapping("/ledgers/save")
-    public String ledgersSave(){
+    public String ledgersSave(@LoginUser SessionUser user, Model model){
+        if(user != null){
+            model.addAttribute("userName", user.getUserId());
+            model.addAttribute("roles", user.getRole());
+        }
         return "ledger/ledgers-save";
     }
 

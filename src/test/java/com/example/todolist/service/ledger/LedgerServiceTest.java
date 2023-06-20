@@ -90,7 +90,7 @@ class LedgerServiceTest {
         //doReturn(ledger()).when(ledgerRepository).save(any(Ledger.class));
 
         //when
-        final Long result = ledgerService.save("test", LegerSaveRequestDto.builder().build());
+        final Long result = ledgerService.save(LegerSaveRequestDto.builder().build());
 
         //then
         assertThat(result).isNotNull();

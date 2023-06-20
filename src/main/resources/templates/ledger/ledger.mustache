@@ -1,6 +1,6 @@
 {{>layout/header}}
 
-<input type="hidden" id="userId" name="userName" value="test" />
+<input type="hidden" id="userId" name="userName" value="{{userName}}" />
 <div>
     <h1>장부시스템</h1>
 
@@ -96,7 +96,7 @@ const priceToString = function(price) {
 
 const selectWeekLedgerList = function(){
     const data ={
-        userId : $("#userId").val(),
+        userId :  $("#userId").val(),
         fromDate : $("#fromDate").text().replace(regex, ""),
         toDate : $("#toDate").text().replace(regex, "")
     };

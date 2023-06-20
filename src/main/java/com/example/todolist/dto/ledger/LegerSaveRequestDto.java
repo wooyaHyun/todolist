@@ -27,6 +27,9 @@ import lombok.NoArgsConstructor;
 @Getter
 public class LegerSaveRequestDto {
 
+    @NotEmpty(message = "사용자 ID는 필수값입니다.")
+    private String userId;
+
     @NotEmpty(message = "사용일자는 필수값입니다.")
     private String useDate;
 
@@ -43,7 +46,8 @@ public class LegerSaveRequestDto {
     private String cntn;
 
     @Builder
-    public LegerSaveRequestDto(String useDate, LedgerDsc ledgerDsc, Item item, int amount, String cntn) {
+    public LegerSaveRequestDto(String userId, String useDate, LedgerDsc ledgerDsc, Item item, int amount, String cntn) {
+        this.userId = userId;
         this.useDate = useDate;
         this.ledgerDsc = ledgerDsc;
         this.item = item;
@@ -51,7 +55,7 @@ public class LegerSaveRequestDto {
         this.cntn = cntn;
     }
 
-    public Ledger toEntity(String userId) {
+    public Ledger toEntity() {
         return Ledger.builder()
                 .userId(userId)
                 .useDate(useDate)

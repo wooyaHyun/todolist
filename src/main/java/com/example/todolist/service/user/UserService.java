@@ -8,6 +8,7 @@ import com.example.todolist.exception.RestApiException;
 import com.example.todolist.exception.UserErrorCode;
 import com.sun.jdi.request.DuplicateRequestException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,7 @@ import java.util.Optional;
  * 2023-06-11   SHW     최초 생성
  */
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class UserService {
@@ -34,7 +36,6 @@ public class UserService {
 
     public boolean existsByUserId(String username) throws Exception{
         boolean flag = userRepository.existsByUserId(username);
-
         if(flag){
             throw new RestApiException(UserErrorCode.DUPLICATED_MEMBER_REGISTER);
         }
@@ -42,10 +43,11 @@ public class UserService {
     }
 
     public String addUser(MemberJoinRequestDto requestDto) {
-        System.out.println("passwordEncoder" + passwordEncoder.encode(requestDto.getPassword()));
+        log.info("passwordEncoder {}" , passwordEncoder.encode(requestDto.getPassword()));
         return userRepository.save(requestDto.toEntity(passwordEncoder)).getUserId();
     }
 
 
 
 }
+

@@ -140,9 +140,7 @@ class LedgerRepositoryTest {
         assertThat(result).isNotNull();
         assertThat(result.size()).isEqualTo(3);
 
-       /* for (LedgerGroupSumResponseDto s : result) {
-            System.out.println("s = " + s.getAmount());
-        }*/
+
 
     }
 
