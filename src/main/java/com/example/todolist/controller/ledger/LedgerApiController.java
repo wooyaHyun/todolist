@@ -7,6 +7,7 @@ import com.example.todolist.dto.EnumMapperValue;
 import com.example.todolist.dto.ledger.LedgerMainResponseDto;
 import com.example.todolist.dto.ledger.LegerSaveRequestDto;
 import com.example.todolist.service.ledger.LedgerService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,25 +37,22 @@ public class LedgerApiController {
 
     private final LedgerService ledgerService;
     private final EnumMapper enumMapper;
+    private final HttpSession httpSession;
 
     @GetMapping("/api/v1/ledgers")
     public ResponseEntity<LedgerMainResponseDto> getLedgerList(
-            @LoginUser SessionUser user, @RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
-        if(user != null){
-            return ResponseEntity.ok(ledgerService.getLedgerList(user.getUserId(), fromDate, toDate));
-        }
-        return ResponseEntity.badRequest().build();
+            @RequestParam("userId") String userId, @RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
+
+        return ResponseEntity.ok(ledgerService.getLedgerList(userId, fromDate, toDate));
+
     }
 
     @PostMapping("/api/v1/ledgers")
-    public ResponseEntity<Long> addLedger(@LoginUser SessionUser user, @RequestBody @Valid LegerSaveRequestDto requestDto) {
-        Long save = ledgerService.save(user.getUserId(), requestDto);
+    public ResponseEntity<Long> addLedger(@RequestBody @Valid LegerSaveRequestDto requestDto) {
+        Long save = ledgerService.save(requestDto);
 
-        if(user != null){
-            return ResponseEntity.status(HttpStatus.CREATED).body(save);
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(save);
 
-        return ResponseEntity.badRequest().build();
     }
 
     @GetMapping("/api/v1/ledger-dsc")

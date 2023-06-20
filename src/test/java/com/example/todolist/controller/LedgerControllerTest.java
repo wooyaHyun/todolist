@@ -1,32 +1,46 @@
 package com.example.todolist.controller;
 
+import com.example.todolist.config.auth.dto.SessionUser;
 import com.example.todolist.controller.ledger.LedgerApiController;
 import com.example.todolist.domain.ledger.Item;
 import com.example.todolist.domain.ledger.Ledger;
 import com.example.todolist.domain.ledger.LedgerDsc;
+import com.example.todolist.domain.user.Member;
+import com.example.todolist.domain.user.Role;
+import com.example.todolist.dto.EnumMapper;
 import com.example.todolist.dto.ledger.LedgerGroupSumResponseDto;
 import com.example.todolist.dto.ledger.LedgerListResponseDto;
 import com.example.todolist.dto.ledger.LedgerMainResponseDto;
 import com.example.todolist.dto.ledger.LegerSaveRequestDto;
 import com.example.todolist.service.ledger.LedgerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpSession;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -41,7 +55,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * 2023-05-17   SHW     최초 생성
  */
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 class LedgerControllerTest {
 
     @InjectMocks
@@ -50,14 +65,35 @@ class LedgerControllerTest {
     @Mock
     private LedgerService ledgerService;
 
+    @Mock
+    private EnumMapper enumMapper;
+
+
+    @Autowired
+    private WebApplicationContext context;
+
     private MockMvc mockMvc;
+
+
 
     @BeforeEach
     void init() {
-        mockMvc = MockMvcBuilders.standaloneSetup(ledgerController)
+        /*mockMvc = MockMvcBuilders.standaloneSetup(ledgerController)
+                .build();*/
+        mockMvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .apply(springSecurity())
                 .build();
+
     }
 
+
+
+    @Test
+    void context_null이아님() {
+
+        assertThat(context).isNotNull();
+    }
 
     @Test
     void 장부_리스트조회_성공() throws Exception {
@@ -66,6 +102,7 @@ class LedgerControllerTest {
 
         final List<LedgerListResponseDto> list1 = new ArrayList<>();
         final List<LedgerGroupSumResponseDto> list2 = new ArrayList<>();
+
         when(ledgerService.getLedgerList("test", "20230501", "20230530")).thenReturn(
             LedgerMainResponseDto.builder()
                     .ledgerListResponseDtoList(list1)
@@ -89,6 +126,7 @@ class LedgerControllerTest {
     }
 
     @Test
+    @WithMockUser(roles="USER")
     void 장부_구분및항목_리스트조회_성공() throws Exception {
         //given
         final String url = "/api/v1/ledger-dsc";
@@ -104,12 +142,14 @@ class LedgerControllerTest {
     }
 
     @Test
+    @WithMockUser(roles="USER")
     void 장부_등록_성공() throws Exception {
 
         //given
         final String url = "/api/v1/ledgers";
 
         LegerSaveRequestDto requestDto = LegerSaveRequestDto.builder()
+                .userId("test")
                 .useDate("20230517")
                 .ledgerDsc(LedgerDsc.EXPENDITURE)
                 .item(Item.ALCOHOL)
@@ -117,7 +157,7 @@ class LedgerControllerTest {
                 .cntn("성영이 올라옴")
                 .build();
 
-        when(ledgerService.save("test", any(LegerSaveRequestDto.class))).thenReturn(-1L);
+        when(ledgerService.save(any(LegerSaveRequestDto.class))).thenReturn(-1L);
 
         //when
         final ResultActions resultActions = mockMvc.perform(

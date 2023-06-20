@@ -1,5 +1,5 @@
 {{>layout/header}}
-
+<input type="hidden" id="userId" name="userName" value="{{userName}}" />
 <div>
     <h3 id="titleMonth">장부시스템_등록</h3> <span><button id="back">이전</button><button id="save">등록</button></span>
 
@@ -49,6 +49,7 @@ $("#save").click(function(){
     let useDate = $("#useDate").val();
     useDate = useDate.replace(regex, "");
     const data = {
+        userId : $("#userId").val(),
         cntn : $("#cntn").val(),
         amount : $('#amount').val(),
         ledgerDsc : $('#dsc').val(),

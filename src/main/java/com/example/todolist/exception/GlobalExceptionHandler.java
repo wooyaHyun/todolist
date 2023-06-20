@@ -79,7 +79,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             WebRequest request) {
 
         log.warn("handleIllegalArgument", ex);
-        System.out.println("handleIllegalArgument" + ex);
         ErrorCode errorCode = CommonErrorCode.INVALID_PARAMETER;
 
         return handleExceptionInternal(ex, errorCode);

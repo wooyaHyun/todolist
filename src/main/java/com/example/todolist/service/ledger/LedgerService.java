@@ -32,9 +32,9 @@ public class LedgerService {
     private final LedgerRepository ledgerRepository;
 
     @Transactional
-    public Long save(String userId, LegerSaveRequestDto requestDto) {
+    public Long save(LegerSaveRequestDto requestDto) {
 
-        return ledgerRepository.save(requestDto.toEntity(userId)).getId();
+        return ledgerRepository.save(requestDto.toEntity()).getId();
     }
 
 
