@@ -2,6 +2,7 @@ package com.example.todolist.config.aop;
 
 
 import com.example.todolist.config.auth.dto.SessionUser;
+import com.example.todolist.domain.logs.MethodDsc;
 import com.example.todolist.service.logs.LogsService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -24,30 +25,21 @@ public class LogAdvice {
     private final HttpSession httpSession;
     private final HttpServletRequest request;
 
-    @Pointcut("execution(* com.example.todolist.service..*(..))")
+    @Pointcut("execution(* com.example.todolist.service..*(..)) && !execution(* com.example.todolist.service.user..*(..))")
     private void advicePoint(){}
 
     @Before("advicePoint()")
     public void logAfter(JoinPoint joinPoint){
         log.info("########## AOP #########");
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        log.info("### Before - Method : {}" , methodSignature.toString());
-        log.info("### Before - Method : {}" , methodSignature.getName());
         SessionUser user = (SessionUser)httpSession.getAttribute("user");
-        //logsService.addLogs(user.getUserId());
-
-        log.info("### getUserId : {}" , user.getUserId());
-        log.info("### request.getRemoteAddr() : {}" , request.getRemoteAddr());
-        log.info("### getUserId : {}" , request.getRequestURI());
 
         if(!methodSignature.getName().equals("addLogs")){
-            logsService.addLogs(user.getUserId(), request, );
+            logsService.addLogs(user.getUserId(), request, methodSignature.getName().toLowerCase());
         }
 
-
-
-        for(Object arg : joinPoint.getArgs()) {
+        /*for(Object arg : joinPoint.getArgs()) {
             log.info(arg.toString());
-        }
+        }*/
     }
 }

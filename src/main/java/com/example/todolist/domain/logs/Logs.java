@@ -22,10 +22,14 @@ public class Logs extends BaseTimeEntity {
     @Column
     private String requestIp;
 
+    @Enumerated(EnumType.STRING)
+    private MethodDsc methodDsc;
+
     @Builder
-    public Logs(String userId, String apiUri, String requestIp) {
+    public Logs(String userId, String apiUri, String requestIp, MethodDsc methodDsc) {
         this.userId = userId;
         this.apiUri = apiUri;
         this.requestIp = requestIp;
+        this.methodDsc = methodDsc;
     }
 }

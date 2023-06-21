@@ -157,7 +157,7 @@ class LedgerControllerTest {
                 .cntn("성영이 올라옴")
                 .build();
 
-        when(ledgerService.save(any(LegerSaveRequestDto.class))).thenReturn(-1L);
+        when(ledgerService.addLedger(any(LegerSaveRequestDto.class))).thenReturn(-1L);
 
         //when
         final ResultActions resultActions = mockMvc.perform(

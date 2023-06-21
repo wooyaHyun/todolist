@@ -49,7 +49,7 @@ public class LedgerApiController {
 
     @PostMapping("/api/v1/ledgers")
     public ResponseEntity<Long> addLedger(@RequestBody @Valid LegerSaveRequestDto requestDto) {
-        Long save = ledgerService.save(requestDto);
+        Long save = ledgerService.addLedger(requestDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(save);
 
