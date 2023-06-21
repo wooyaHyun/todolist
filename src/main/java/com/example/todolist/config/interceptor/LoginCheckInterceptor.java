@@ -27,10 +27,11 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 
-
+        log.info("LoginCheckInterceptor");
         HttpSession session = request.getSession(false);
         log.warn("session::: {}", session);
         if(session == null){
+
             response.sendRedirect("/user/login");
             return false;
         }
