@@ -26,12 +26,12 @@ public class LogInterceptor implements HandlerInterceptor {
             throws Exception {//컨트롤 메서드가 실행되기 전
         String requestURI = request.getRequestURI();
 
-        log.info("[interceptor] requestURI {}: " , requestURI);
+        log.info("[interceptor] requestURI : {}" , requestURI);
 
         return true;  // false -> 이후에 진행을 하지 않는다.
     }
 
-    @Override
+   /* @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {//컨트롤 메서드가 실행된 직후 view 페이지 렌더링 되기 전
         log.info("[interceptor] postHandle");
@@ -41,5 +41,5 @@ public class LogInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
             throws Exception {//view 페이지 렌더링
         log.info("[interceptor] afterCompletion");
-    }
+    }*/
 }
