@@ -6,6 +6,8 @@ import com.example.todolist.domain.user.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,12 +32,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     private final UserRepository userRepository;
     private final HttpSession httpSession;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.debug("username: {}", username);
+        logger.debug("username: {}", username);
+        logger.info("username: {}", username);
+        logger.warn("username: {}", username);
+        logger.error("username: {}", username);
         Member member = userRepository.findByUserId(username).orElseThrow(() -> new UsernameNotFoundException(username));
 
         httpSession.setAttribute("user", new SessionUser(member));
