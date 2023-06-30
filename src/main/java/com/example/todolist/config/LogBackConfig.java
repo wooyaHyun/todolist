@@ -40,7 +40,6 @@ public class LogBackConfig {
         createLogger("com.example.todolist.controller", DEBUG, true);
         createLogger("com.example.todolist.service", WARN, true);
         createLogger("com.example.todolist.repository", INFO, true);
-        createLogger("{패키지 경로}.*.security", DEBUG, true);
     }
 
     private void createLogger(String loggerName, Level logLevel, Boolean additive) {

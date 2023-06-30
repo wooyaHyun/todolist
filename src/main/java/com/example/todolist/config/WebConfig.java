@@ -1,9 +1,8 @@
 package com.example.todolist.config;
 
-import com.example.todolist.component.LoginUserArgumentResolver;
+import com.example.todolist.config.component.LoginUserArgumentResolver;
 import com.example.todolist.config.interceptor.LogInterceptor;
 import com.example.todolist.config.interceptor.LoginCheckInterceptor;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;

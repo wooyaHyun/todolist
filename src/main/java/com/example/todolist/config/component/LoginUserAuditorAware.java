@@ -1,4 +1,4 @@
-package com.example.todolist.component;
+package com.example.todolist.config.component;
 
 import com.example.todolist.config.auth.dto.SessionUser;
 import jakarta.servlet.http.HttpSession;

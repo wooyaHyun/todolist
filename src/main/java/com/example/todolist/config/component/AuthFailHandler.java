@@ -1,4 +1,4 @@
-package com.example.todolist.component;
+package com.example.todolist.config.component;
 
 import com.example.todolist.dto.exception.ErrorResponse;
 import com.example.todolist.exception.CommonErrorCode;

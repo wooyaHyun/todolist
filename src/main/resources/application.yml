@@ -22,10 +22,10 @@ spring:
         #format_sql: true
         dialect: org.hibernate.dialect.H2Dialect
 
-server:
-  servlet:
-    encoding:
-      force-response: true
+#server:
+#  servlet:
+#    encoding:
+#      force-response: true
 
 
 logging:
