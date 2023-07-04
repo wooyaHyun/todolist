@@ -29,16 +29,17 @@
 
 - (변경 전) 기존 테이블
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cdd5636b-4801-4b5f-bc19-e70f977b96f0/Untitled.png)
+![image](https://github.com/wooyaHyun/todolist/assets/97392429/b0472079-501b-402d-b735-3b7b67d4f060)
+
 
 - (변경 후) Enum
-  ```java
-  public enum LedgerDsc implements EnumMapperType {
+```java
+public enum LedgerDsc implements EnumMapperType {
     EXPENDITURE("지출", Arrays.asList(Item.FOOD, Item.SHOPPING, Item.COFFEE, Item.DATE, Item.ALCOHOL, Item.TRANSPORTATION, Item.ETC_EXPENDITURE)),
     INCOME("수입", Arrays.asList(Item.SALARY, Item.BONUS, Item.CLOTHING_PAYMENT, Item.GIFT_CARD, Item.ETC_INCOME));
-		...
-}
 
+     ...
+}
 
 public enum Item implements EnumMapperType {
 
@@ -54,6 +55,7 @@ public enum Item implements EnumMapperType {
     CLOTHING_PAYMENT("피복비"),
     GIFT_CARD("상품권"),
     ETC_INCOME("기타수입");
-		....
+
+    ....
 }
 ```
