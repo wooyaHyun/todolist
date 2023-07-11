@@ -9,6 +9,7 @@ import com.example.todolist.service.user.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
  * 2023-05-22   SHW     최초 생성
  */
 
+@Slf4j
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
@@ -37,7 +39,8 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(){
-
+        log.info("test");
+        log.debug("test");
         return "index";
     }
 

@@ -6,6 +6,9 @@ import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.ConsoleAppender;
+import ch.qos.logback.core.FileAppender;
+import ch.qos.logback.core.rolling.*;
+import ch.qos.logback.core.util.FileSize;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import static ch.qos.logback.classic.Level.*;
 
 @Configuration
-public class LogBackConfig {
+public class LogBackConsoleConfig {
 
     //공통 필드, 어펜더 별 설정을 달리 할 경우 지역변수로 변경
     private final LoggerContext logCtx = (LoggerContext)LoggerFactory.getILoggerFactory();
@@ -24,9 +27,15 @@ public class LogBackConfig {
     private ConsoleAppender<ILoggingEvent> consoleAppender;
 
     @Bean
-    public void logConfig(){
+    public void logConsoleConfig(){
         consoleAppender = getLogConsoleAppender();
         createLoggers();
+    }
+
+    private ConsoleAppender<ILoggingEvent> getLogConsoleAppender() {
+        final String appendName = "STDOUT";
+        PatternLayoutEncoder consoleLogEncoder = createLogEncoder(pattern);
+        return createLogConsoleAppender(appendName, consoleLogEncoder);
     }
 
     private void createLoggers(){
@@ -36,7 +45,6 @@ public class LogBackConfig {
         createLogger("jdbc", OFF, true);
         createLogger("jdbc.sqlonly", DEBUG, true);
         createLogger("jdbc.sqltiming", DEBUG, true);
-        createLogger("{패키지 경로}", INFO, true);
         createLogger("com.example.todolist.controller", DEBUG, true);
         createLogger("com.example.todolist.service", WARN, true);
         createLogger("com.example.todolist.repository", INFO, true);
@@ -50,12 +58,7 @@ public class LogBackConfig {
         logger.addAppender(consoleAppender);
     }
 
-    private ConsoleAppender<ILoggingEvent> getLogConsoleAppender() {
-        final String appendName = "STDOUT";
 
-        PatternLayoutEncoder consoleLogEncoder = createLogEncoder(pattern);
-        return createLogConsoleAppender(appendName, consoleLogEncoder);
-    }
 
     private PatternLayoutEncoder createLogEncoder(String pattern) {
         PatternLayoutEncoder encoder = new PatternLayoutEncoder();
@@ -65,6 +68,7 @@ public class LogBackConfig {
         return encoder;
     }
 
+
     private ConsoleAppender<ILoggingEvent> createLogConsoleAppender(String appendName, PatternLayoutEncoder consoleLogEncoder) {
         ConsoleAppender<ILoggingEvent> logConsoleAppender = new ConsoleAppender<>();
         logConsoleAppender.setName(appendName);
@@ -73,4 +77,5 @@ public class LogBackConfig {
         logConsoleAppender.start();
         return logConsoleAppender;
     }
+
 }

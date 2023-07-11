@@ -32,5 +32,15 @@ public class AppConfig {
         return enumMapper;
     }
 
+    /*@Bean
+    public LogBackConsoleConfig logBackConsoleConfig() {
+        return new LogBackConsoleConfig();
+    }
+
+    @Bean
+    public LogBackRollingConfig logBackRollingConfig() {
+        return new LogBackRollingConfig();
+    }*/
+
 
 }
