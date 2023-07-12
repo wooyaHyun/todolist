@@ -1,5 +1,6 @@
-package com.example.todolist.config.auth;
+package com.example.todolist.config;
 
+import com.example.todolist.config.auth.MyUserDetailsService;
 import com.example.todolist.config.component.AuthFailHandler;
 import com.example.todolist.domain.user.Role;
 import com.example.todolist.dto.exception.ErrorResponse;

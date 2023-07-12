@@ -19,7 +19,7 @@ spring:
     properties:
       hibernate:
         #show_sql: true
-        #format_sql: true
+        format_sql: true
         dialect: org.hibernate.dialect.H2Dialect
 
 #server:
@@ -28,10 +28,11 @@ spring:
 #      force-response: true
 
 
-logging:
-  level:
-    com.example.todolist: debug
-    org.hibernate.SQL: debug
-    org.hibernate.type: trace
+
+#logging:
+  #level:
+    #com.example.todolist: debug
+    #org.hibernate.SQL: debug
+    #org.hibernate.type: trace
   #file:
     #name: ./logs/spring-jpa.log
