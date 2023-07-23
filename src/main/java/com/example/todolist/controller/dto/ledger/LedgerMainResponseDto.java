@@ -1,8 +1,7 @@
-package com.example.todolist.dto.ledger;
+package com.example.todolist.controller.dto.ledger;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 

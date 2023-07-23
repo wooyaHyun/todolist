@@ -2,16 +2,14 @@ package com.example.todolist.controller;
 
 import com.example.todolist.config.auth.dto.LoginUser;
 import com.example.todolist.config.auth.dto.SessionUser;
-import com.example.todolist.dto.ledger.LedgerResponseDto;
-import com.example.todolist.dto.user.MemberJoinRequestDto;
+import com.example.todolist.controller.dto.ledger.LedgerResponseDto;
+import com.example.todolist.controller.dto.user.MemberJoinRequestDto;
 import com.example.todolist.service.ledger.LedgerService;
 import com.example.todolist.service.user.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -73,6 +71,7 @@ public class IndexController {
         if(user != null){
             model.addAttribute("userName", user.getUserId());
             model.addAttribute("roles", user.getRole());
+            model.addAttribute("point", user.getPoint());
         }
 
         return "ledger/ledger";

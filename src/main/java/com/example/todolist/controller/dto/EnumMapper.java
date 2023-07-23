@@ -1,7 +1,4 @@
-package com.example.todolist.dto;
-
-import com.example.todolist.dto.EnumMapperType;
-import com.example.todolist.dto.EnumMapperValue;
+package com.example.todolist.controller.dto;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -9,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * packageName : com.example.todolist.dto

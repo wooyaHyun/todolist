@@ -13,14 +13,11 @@ import static ch.qos.logback.classic.Level.DEBUG;
 
 public class LogbackConsole{
 
-    //공통 필드, 어펜더 별 설정을 달리 할 경우 지역변수로 변경
     private final LoggerContext logCtx = (LoggerContext) LoggerFactory.getILoggerFactory();
 
     private final String CONSOLE_PATTERN = "%d{yyyy-MM-dd HH:mm:ss.SSS} %magenta([%thread]) %highlight([%-3level]) %logger{5} - %msg %n";
 
-    //어펜더 목록, 다른 어펜더가 필요할 경우 추가
     private ConsoleAppender<ILoggingEvent> consoleAppender;
-
 
     public void logConfig(){
         logCtx.reset();
@@ -29,7 +26,6 @@ public class LogbackConsole{
     }
 
     private void createLoggers(){
-        // 로거 이름, 로깅 레벨, 상위 로깅 설정 상속 여부 설정
         createLogger("root", INFO, true);
         createLogger("jdbc", OFF, false);
         createLogger("jdbc.sqlonly", DEBUG, false);

@@ -11,10 +11,12 @@ public class SessionUser implements Serializable {
     private String userId;
     private String password;
     private Role role;
+    private int point;
 
     public SessionUser(Member member) {
         this.userId = member.getUserId();
         this.password = member.getPassword();
         this.role = member.getRole();
+        this.point = member.getPoints();
     }
 }

@@ -3,7 +3,7 @@ package com.example.todolist.config;
 import com.example.todolist.config.auth.MyUserDetailsService;
 import com.example.todolist.config.component.AuthFailHandler;
 import com.example.todolist.domain.user.Role;
-import com.example.todolist.dto.exception.ErrorResponse;
+import com.example.todolist.controller.dto.exception.ErrorResponse;
 import com.example.todolist.exception.ErrorCode;
 import com.example.todolist.exception.UserErrorCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -64,7 +64,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
-                                .requestMatchers("/", "/user/**", "/login-proc").permitAll()
+                                .requestMatchers("/", "/user/**", "/login-proc", "/order-cancel").permitAll()
                                 .requestMatchers(PathRequest.toH2Console()).permitAll()    // 추가
                                 .requestMatchers("/ledgers/**", "/api/v1/**").hasRole(Role.USER.name())
                                 .requestMatchers("/admins/**").hasRole(Role.ADMIN.name())

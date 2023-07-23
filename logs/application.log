@@ -1,0 +1,15 @@
+2023-07-14 00:36:18.753  o.h.SQL - 
+    
+    drop table if exists ledger cascade  
+2023-07-14 00:36:18.758  o.h.SQL - 
+    
+    drop table if exists logs cascade  
+2023-07-14 00:36:18.760  o.h.SQL - 
+    
+    drop table if exists member cascade  
+2023-07-14 00:36:18.761  o.h.SQL - 
+    
+    drop sequence if exists logs_seq 
+2023-07-14 00:36:18.762  o.h.SQL - 
+    
+    drop sequence if exists member_seq 

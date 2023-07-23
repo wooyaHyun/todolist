@@ -1,13 +1,9 @@
 package com.example.todolist.domain.logs;
 
-import com.example.todolist.domain.ledger.Item;
-import com.example.todolist.domain.ledger.LedgerDsc;
-import com.example.todolist.dto.EnumMapperType;
-import lombok.Getter;
+import com.example.todolist.controller.dto.EnumMapperType;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
-import java.util.Locale;
 
 /**
  * packageName : com.example.todolist.domain.logs

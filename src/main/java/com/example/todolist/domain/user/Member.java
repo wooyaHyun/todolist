@@ -6,8 +6,12 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+
+import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.FetchType.LAZY;
 
 /**
  * packageName : com.example.todolist.domain.user
@@ -30,6 +34,7 @@ public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "member_id")
     private Long id;
 
     @Column(nullable = false)
@@ -42,6 +47,14 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private Role role;
 
+    /*@OneToOne(fetch = LAZY, cascade = ALL)
+    @JoinColumn(name = "point_id")
+    private Points points;*/
+
+    @Column(nullable = false)
+    @ColumnDefault("0")
+    private int points;
+
     @Column
     private boolean deleted;
 
@@ -51,7 +64,6 @@ public class Member extends BaseTimeEntity {
         this.userId = userId;
         this.password = password;
         this.role = role;
-
     }
 
     public String getRoleKey(){

@@ -1,6 +1,4 @@
-package com.example.todolist.dto;
-
-import java.util.List;
+package com.example.todolist.controller.dto;
 
 /**
  * packageName : com.example.todolist.domain.ledger

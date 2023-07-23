@@ -1,7 +1,7 @@
 package com.example.todolist.domain.ledger;
 
 import com.example.todolist.domain.BaseTimeEntity;
-import com.example.todolist.dto.ledger.LegerSaveRequestDto;
+import com.example.todolist.controller.dto.ledger.LegerSaveRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;

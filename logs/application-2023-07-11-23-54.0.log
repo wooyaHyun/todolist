@@ -1,0 +1,12 @@
+2023-07-11 23:54:25.354  c.e.t.c.c.EncodingFilter - End filter checking 
+2023-07-11 23:54:25.438  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default' 
+2023-07-11 23:54:25.450  o.h.t.s.i.SchemaDropperImpl$DelayedDropActionImpl - HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down' 
+2023-07-11 23:54:25.453  o.h.SQL - drop table if exists ledger cascade  
+2023-07-11 23:54:25.540  o.h.SQL - drop table if exists logs cascade  
+2023-07-11 23:54:25.541  o.h.SQL - drop table if exists member cascade  
+2023-07-11 23:54:25.541  o.h.SQL - drop sequence if exists logs_seq 
+2023-07-11 23:54:25.542  o.h.SQL - drop sequence if exists member_seq 
+2023-07-11 23:54:25.544  o.h.t.s.TypeConfiguration$Scope - Handling #sessionFactoryClosed from [org.hibernate.internal.SessionFactoryImpl@5e05a706] for TypeConfiguration 
+2023-07-11 23:54:25.545  o.h.t.s.TypeConfiguration$Scope - Un-scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration$Scope@60e75c08] from SessionFactory [org.hibernate.internal.SessionFactoryImpl@5e05a706] 
+2023-07-11 23:54:25.549  c.z.h.HikariDataSource - HikariPool-1 - Shutdown initiated... 
+2023-07-11 23:54:25.570  c.z.h.HikariDataSource - HikariPool-1 - Shutdown completed. 

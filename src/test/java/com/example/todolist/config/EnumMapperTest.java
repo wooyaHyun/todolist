@@ -1,7 +1,7 @@
 package com.example.todolist.config;
 
-import com.example.todolist.dto.EnumMapper;
-import com.example.todolist.dto.EnumMapperValue;
+import com.example.todolist.controller.dto.EnumMapper;
+import com.example.todolist.controller.dto.EnumMapperValue;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -39,10 +39,6 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        logger.debug("username: {}", username);
-        logger.info("username: {}", username);
-        logger.warn("username: {}", username);
-        logger.error("username: {}", username);
         Member member = userRepository.findByUserId(username).orElseThrow(() -> new UsernameNotFoundException(username));
 
         httpSession.setAttribute("user", new SessionUser(member));

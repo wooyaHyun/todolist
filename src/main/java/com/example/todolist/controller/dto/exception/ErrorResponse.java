@@ -1,4 +1,4 @@
-package com.example.todolist.dto.exception;
+package com.example.todolist.controller.dto.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;

@@ -1,6 +1,6 @@
 package com.example.todolist.domain.ledger;
 
-import com.example.todolist.dto.EnumMapperType;
+import com.example.todolist.controller.dto.EnumMapperType;
 import lombok.RequiredArgsConstructor;
 
 /**

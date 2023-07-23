@@ -1,4 +1,4 @@
-package com.example.todolist.dto.user;
+package com.example.todolist.controller.dto.user;
 
 import com.example.todolist.domain.user.Member;
 import com.example.todolist.domain.user.Role;

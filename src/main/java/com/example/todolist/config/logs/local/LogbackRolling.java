@@ -37,9 +37,6 @@ public class LogbackRolling {
         createLogger("jdbc.sqlonly", DEBUG, false);
         createLogger("jdbc.sqltiming", OFF, false);
         createLogger("org.hibernate.SQL", DEBUG, false);
-        createLogger("com.example.todolist.controller", DEBUG, false);
-        createLogger("com.example.todolist.service", DEBUG, false);
-        createLogger("com.example.todolist.domain", DEBUG, false);
     }
 
     private void createLogger(String loggerName, Level logLevel, Boolean additive) {

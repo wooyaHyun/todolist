@@ -29,10 +29,8 @@ spring:
 
 
 
-#logging:
-  #level:
-    #com.example.todolist: debug
-    #org.hibernate.SQL: debug
-    #org.hibernate.type: trace
+logging:
+  level:
+    org.hibernate.SQL: debug
   #file:
     #name: ./logs/spring-jpa.log

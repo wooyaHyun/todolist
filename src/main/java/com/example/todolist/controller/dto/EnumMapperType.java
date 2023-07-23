@@ -1,4 +1,4 @@
-package com.example.todolist.dto;
+package com.example.todolist.controller.dto;
 
 import com.example.todolist.domain.ledger.Item;
 
